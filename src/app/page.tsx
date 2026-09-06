@@ -17,6 +17,8 @@ import {
 import { FAQ } from "@/components/sections/faq";
 import { FinalCta } from "@/components/sections/final-cta";
 import { RequestProvider } from "@/components/ui/request-context";
+import { LandingMotion } from "@/components/ui/landing-motion";
+import { ContactOptions } from "@/components/ui/contact-options";
 export default async function Home() {
   const content = await getLandingPage();
   return (
@@ -29,6 +31,7 @@ export default async function Home() {
       />
       <RequestProvider>
         <main id="main" tabIndex={-1}>
+          <LandingMotion />
           <Hero content={content.hero} />
           <Vehicles
             content={content.vehicles}
@@ -36,7 +39,10 @@ export default async function Home() {
           />
           <Process content={content.process} />
           <Cost content={content.cost} />
-          <Estimate content={content.estimate} />
+          <Estimate
+            content={content.estimate}
+            contacts={<ContactOptions company={company} />}
+          />
           <Timing content={content.timing} />
           <Contracts content={content.contracts} />
           <Delivery content={content.delivery} />

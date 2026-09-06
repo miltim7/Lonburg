@@ -6,6 +6,7 @@ export interface Media {
   src: string;
   alt: string;
   position?: string;
+  blurDataURL?: string;
 }
 export interface SectionIntro {
   eyebrow: string;
@@ -101,6 +102,9 @@ export interface LandingPageContent {
   process: SectionIntro & { steps: ProcessStep[]; note: string };
   cost: SectionIntro & {
     items: TextItem[];
+    registrationItems: TextItem[];
+    registrationTitle: string;
+    registrationNote: string;
     total: string;
     totalNote: string;
     optionalNote: string;

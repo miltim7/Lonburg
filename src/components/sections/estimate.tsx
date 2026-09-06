@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { ChevronDown, Download, Info, X } from "lucide-react";
 import type {
   EstimateContent,
@@ -15,7 +15,13 @@ import {
 import { SectionHeading } from "@/components/ui/primitives";
 import { useRequest } from "@/components/ui/request-context";
 
-export function Estimate({ content }: { content: EstimateContent }) {
+export function Estimate({
+  content,
+  contacts,
+}: {
+  content: EstimateContent;
+  contacts: ReactNode;
+}) {
   const { category, selectCategory } = useRequest();
   const [values, setValues] = useState<EstimateValues>({
     model: "",
@@ -147,7 +153,7 @@ export function Estimate({ content }: { content: EstimateContent }) {
                 aria-label={content.clearCategory}
                 onClick={() => {
                   selectCategory(null);
-                    setSavedRequest(null);
+                  setSavedRequest(null);
                 }}
               >
                 <X size={17} aria-hidden="true" />
@@ -187,6 +193,9 @@ export function Estimate({ content }: { content: EstimateContent }) {
             {downloaded && <p>{content.downloaded}</p>}
           </div>
         </form>
+        <div className="estimate-contacts" id="contacts">
+          {contacts}
+        </div>
       </div>
     </section>
   );

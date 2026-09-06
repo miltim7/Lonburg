@@ -1,7 +1,7 @@
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import type { LandingPageContent } from "@/types/content";
 import { SectionHeading } from "@/components/ui/primitives";
+import { DeliveryJourney } from "./delivery-journey";
 export function Timing({ content }: { content: LandingPageContent["timing"] }) {
   return (
     <section className="section timing" id="timing" tabIndex={-1}>
@@ -72,22 +72,7 @@ export function Delivery({
         <div className="delivery-top">
           <SectionHeading content={content} />
         </div>
-        <ol className="delivery-route">
-          {content.route.map((item, i) => (
-            <li key={item.title}>
-              <div className="route-marker">
-                <span />
-                <i aria-hidden="true" />
-                {i < content.route.length - 1 && (
-                  <ArrowRight size={20} aria-hidden="true" />
-                )}
-              </div>
-              <span className="route-index">0{i + 1}</span>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </li>
-          ))}
-        </ol>
+        <DeliveryJourney route={content.route} />
         <p className="route-note">{content.note}</p>
       </div>
     </section>
@@ -109,7 +94,11 @@ export function Advantages({
                 src={content.image.src}
                 alt={content.image.alt}
                 fill
-                sizes="(max-width: 767px) 100vw, 45vw"
+                sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1099px) calc(45.8vw - 18px), (max-width: 1279px) calc(45.8vw - 28px), (max-width: 1464px) calc(45.8vw - 45px), 615px"
+                loading="lazy"
+                quality={75}
+                placeholder="blur"
+                blurDataURL={content.image.blurDataURL}
                 style={{ objectPosition: content.image.position }}
               />
             </div>

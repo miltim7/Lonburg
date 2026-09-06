@@ -1,0 +1,50 @@
+[
+  {
+    "path": "public/images/automotive-hero.webp",
+    "width": 1536,
+    "height": 1024,
+    "format": "webp",
+    "bytes": 81846,
+    "placeholderBytes": 58
+  },
+  {
+    "path": "public/images/electric-v2.webp",
+    "width": 1536,
+    "height": 1024,
+    "format": "webp",
+    "bytes": 140266,
+    "placeholderBytes": 62
+  },
+  {
+    "path": "public/images/automotive-suv.webp",
+    "width": 1536,
+    "height": 1024,
+    "format": "webp",
+    "bytes": 119276,
+    "placeholderBytes": 66
+  },
+  {
+    "path": "public/images/petrol-v2.webp",
+    "width": 1536,
+    "height": 1024,
+    "format": "webp",
+    "bytes": 165012,
+    "placeholderBytes": 58
+  },
+  {
+    "path": "public/images/interior-v2.webp",
+    "width": 1536,
+    "height": 1024,
+    "format": "webp",
+    "bytes": 138502,
+    "placeholderBytes": 62
+  },
+  {
+    "path": "public/images/road-v2.webp",
+    "width": 1536,
+    "height": 1024,
+    "format": "webp",
+    "bytes": 125404,
+    "placeholderBytes": 60
+  }
+]

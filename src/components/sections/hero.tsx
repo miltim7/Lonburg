@@ -10,9 +10,11 @@ export function Hero({ content }: { content: HeroContent }) {
           src={content.image.src}
           alt={content.image.alt}
           fill
-          sizes="100vw"
+          sizes="(max-width: 429px) calc(100vw + 160px), (max-width: 767px) calc(100vw + 170px), (max-width: 1099px) 90vw, (min-width: 1600px) 75vw, 80vw"
           preload
-          quality={90}
+          quality={80}
+          placeholder="blur"
+          blurDataURL={content.image.blurDataURL}
           style={{ objectPosition: content.image.position }}
         />
       </div>

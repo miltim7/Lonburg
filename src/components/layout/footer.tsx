@@ -1,4 +1,5 @@
-import { ArrowUpRight, ArrowUp } from "lucide-react";
+import { ArrowUp } from "lucide-react";
+import { ContactOptions } from "@/components/ui/contact-options";
 import type { CompanyConfig, CTA } from "@/types/content";
 import type { interfaceText } from "@/data/navigation";
 export function Footer({
@@ -10,15 +11,6 @@ export function Footer({
   links: CTA[];
   labels: typeof interfaceText;
 }) {
-  const contacts = [
-    company.telegram && { label: labels.telegram, href: company.telegram },
-    company.phone && {
-      label: company.phone,
-      href: `tel:${company.phone.replace(/[^+\d]/g, "")}`,
-    },
-    company.email && { label: company.email, href: `mailto:${company.email}` },
-    company.max && { label: labels.max, href: company.max },
-  ].filter(Boolean) as CTA[];
   return (
     <footer className="footer" id="footer">
       <div className="container">
@@ -42,16 +34,7 @@ export function Footer({
               </a>
             ))}
           </nav>
-          {contacts.length > 0 && (
-            <div className="footer-contacts">
-              {contacts.map((contact) => (
-                <a key={contact.href} href={contact.href}>
-                  {contact.label}
-                  <ArrowUpRight size={16} aria-hidden="true" />
-                </a>
-              ))}
-            </div>
-          )}
+          <ContactOptions company={company} compact />
         </div>
         <div className="footer-bottom">
           <p>

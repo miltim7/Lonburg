@@ -15,6 +15,10 @@ export function FinalCta({
         alt={content.image.alt}
         fill
         sizes="100vw"
+        loading="lazy"
+        quality={75}
+        placeholder="blur"
+        blurDataURL={content.image.blurDataURL}
         style={{ objectPosition: content.image.position }}
       />
       <div className="final-shade" />
@@ -22,7 +26,10 @@ export function FinalCta({
         <SectionHeading content={content} />
         <div className="final-actions">
           <ButtonLink cta={content.cta} />
-          {telegram && <ButtonLink cta={telegram} variant="text" />}
+          <ButtonLink
+            cta={telegram ?? { label: "Контакты", href: "#contacts" }}
+            variant="text"
+          />
         </div>
       </div>
     </section>

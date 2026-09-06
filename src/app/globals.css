@@ -32,7 +32,7 @@
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 105px;
+  scroll-padding-top: 0;
 }
 body {
   margin: 0;
@@ -599,15 +599,6 @@ main:focus {
   overflow: hidden;
   border-radius: var(--radius);
   color: white;
-  animation: enter 0.35s ease-out;
-}
-.vehicle-panel > img {
-  object-fit: cover;
-  transform: scale(1.15);
-  transition: transform 0.5s;
-}
-.vehicle-panel:hover > img {
-  transform: scale(1.19);
 }
 .vehicle-panel-shade {
   position: absolute;
@@ -1262,13 +1253,13 @@ main:focus {
   max-width: 280px;
   font-size: 13px;
 }
-.faq-list details {
+.faq-item {
   border-top: 1px solid #ced4ca;
 }
-.faq-list details:last-child {
+.faq-item:last-child {
   border-bottom: 1px solid #ced4ca;
 }
-.faq-list summary {
+.faq-trigger {
   display: flex;
   align-items: center;
   gap: 21px;
@@ -1276,7 +1267,7 @@ main:focus {
   cursor: pointer;
   list-style: none;
 }
-.faq-list summary::-webkit-details-marker {
+.faq-trigger::-webkit-details-marker {
   display: none;
 }
 .faq-index {
@@ -1288,16 +1279,16 @@ main:focus {
   letter-spacing: 0;
   font-weight: 500;
 }
-.faq-list summary > svg {
+.faq-trigger > svg {
   margin-left: auto;
   transition: transform 0.2s;
   color: #6e7868;
 }
-.faq-list details[open] summary > svg {
-  transform: rotate(45deg);
+.faq-trigger[aria-expanded="true"] > svg {
+  transform: rotate(180deg);
   color: var(--accent);
 }
-.faq-list details[open] h3 {
+.faq-trigger[aria-expanded="true"] .faq-question {
   color: var(--accent);
 }
 .faq-answer {
@@ -2009,7 +2000,7 @@ main:focus {
   .faq .section-description {
     max-width: 100%;
   }
-  .faq-list summary {
+  .faq-trigger {
     gap: 13px;
     padding: 20px 0;
     min-height: 67px;
@@ -2286,8 +2277,7 @@ body {
   background: #1b1e2105;
 }
 .vehicle-tab.is-active {
-  box-shadow: inset 3px 0 var(--accent);
-  padding-left: 15px;
+  color: var(--ink);
 }
 .vehicle-tab > svg {
   transition: transform 0.2s;
@@ -2721,7 +2711,7 @@ body {
   font-size: var(--text-secondary);
   max-width: 320px;
 }
-.faq-list summary {
+.faq-trigger {
   gap: 20px;
   padding: 23px 0;
 }
@@ -2740,7 +2730,7 @@ body {
   max-width: none;
   padding-left: 36px;
 }
-.faq-list summary:hover h3 {
+.faq-trigger:hover .faq-question {
   color: var(--accent);
 }
 .final-cta {
@@ -3058,9 +3048,6 @@ body {
     padding: 17px 0;
     gap: 16px;
   }
-  .vehicle-tab.is-active {
-    padding-left: 12px;
-  }
   .vehicle-tab strong {
     font-size: 22px;
   }
@@ -3278,7 +3265,7 @@ body {
   .faq-list h3 {
     font-size: 16px;
   }
-  .faq-list summary {
+  .faq-trigger {
     gap: 14px;
     padding: 21px 0;
   }
@@ -3385,7 +3372,168 @@ body {
     font-size: 18px;
   }
 }
+/* Interaction layer: preserve the existing layout and visual tokens. */
+:root {
+  --motion-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+section[id],
+main[id],
+#contacts {
+  scroll-margin-top: calc(var(--header-height) + 18px);
+}
+.scroll-reveal {
+  transition:
+    opacity 600ms var(--motion-ease) var(--reveal-delay, 0ms),
+    transform 600ms var(--motion-ease) var(--reveal-delay, 0ms);
+}
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.scroll-reveal:focus-within {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+.vehicle-tabs {
+  position: relative;
+}
+.vehicle-tab-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 1px;
+  background: var(--accent);
+  transform-origin: top;
+  pointer-events: none;
+  transition: transform 350ms var(--motion-ease);
+}
+.vehicle-tab {
+  transition:
+    color 300ms var(--motion-ease),
+    background-color 300ms var(--motion-ease);
+}
+.vehicle-tab > span {
+  transition:
+    transform 350ms var(--motion-ease),
+    color 300ms var(--motion-ease);
+}
+.vehicle-tab.is-active > span {
+  transform: translateX(15px);
+}
+.vehicle-tab > svg {
+  transition:
+    transform 300ms var(--motion-ease),
+    opacity 300ms var(--motion-ease),
+    color 300ms var(--motion-ease);
+}
+.vehicle-panels {
+  display: grid;
+  min-width: 0;
+  width: 100%;
+}
+.vehicle-panel {
+  grid-area: 1 / 1;
+  min-width: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 350ms var(--motion-ease);
+}
+.vehicle-panel.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+.vehicle-panel-content {
+  transform: translateY(5px);
+  transition: transform 350ms var(--motion-ease);
+}
+.vehicle-panel.is-active .vehicle-panel-content {
+  transform: none;
+}
+.vehicle-panel-content > a,
+.hero-secondary,
+.scroll-link,
+.footer a {
+  transition:
+    color 220ms var(--motion-ease),
+    border-color 220ms var(--motion-ease),
+    opacity 220ms var(--motion-ease);
+}
+.hero-secondary:hover,
+.scroll-link:hover {
+  color: var(--accent-light);
+}
+.faq-trigger {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+.faq-question {
+  transition: color 220ms var(--motion-ease);
+}
+.faq-trigger > svg {
+  transition:
+    transform 320ms var(--motion-ease),
+    color 220ms var(--motion-ease);
+}
+.faq-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 320ms var(--motion-ease),
+    opacity 260ms var(--motion-ease);
+}
+.faq-collapse.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.faq-answer-clip {
+  min-height: 0;
+  overflow: hidden;
+}
+.faq-answer {
+  transform: translateY(-4px);
+  transition: transform 320ms var(--motion-ease);
+}
+.faq-collapse.is-open .faq-answer {
+  transform: none;
+}
+@media (max-width: 767px) {
+  .scroll-reveal {
+    transition-duration: 450ms;
+    transition-delay: 0ms;
+  }
+  .reveal-pending {
+    transform: translateY(8px);
+  }
+  .vehicle-tab.is-active > span {
+    transform: translateX(12px);
+  }
+  .vehicle-tab > span:nth-child(2) {
+    /* Reserve the original active inset without resizing the tab group. */
+    padding-right: 12px;
+  }
+  .faq-collapse,
+  .faq-answer,
+  .faq-trigger > svg {
+    transition-duration: 260ms;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
+  .reveal-pending {
+    opacity: 1;
+    transform: none;
+  }
+  .hero-image,
+  .vehicle-panel-content,
+  .faq-answer {
+    transform: none !important;
+  }
   html {
     scroll-behavior: auto;
   }
@@ -3395,5 +3543,314 @@ body {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
+  }
+}
+@media print {
+  .reveal-pending {
+    opacity: 1;
+    transform: none;
+  }
+  .vehicle-panel:not(.is-active) {
+    visibility: hidden;
+  }
+  .faq-collapse {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}
+
+/* Visual audit: a compact mobile choice and an editorial delivery diagram. */
+.cost-registration {
+  margin-top: 20px;
+  padding: 18px 18px 0;
+  border: 1px solid var(--dark-line);
+  border-radius: var(--radius);
+  background: #11141666;
+}
+.cost-registration-heading h3 {
+  font-size: 13px;
+  letter-spacing: 0;
+  color: var(--accent-light);
+}
+.cost-registration-heading > p {
+  margin-top: 5px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--dark-muted);
+}
+.cost-registration .cost-items li:last-child {
+  border-bottom: 0;
+}
+.cost-registration .cost-items h3 {
+  font-size: 16px;
+}
+.cost-registration .cost-items p {
+  font-size: 13px;
+}
+.cost-document > .cost-items li {
+  padding-block: 15px;
+}
+.estimate-contacts {
+  grid-column: 1 / -1;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.estimate-grid {
+  row-gap: 32px;
+}
+.estimate-form {
+  align-self: start;
+}
+.estimate-contacts .contact-options ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+.estimate-contacts .contact-options li + li {
+  border-top: 0;
+}
+.contact-options h3 {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+}
+.contact-options ul {
+  margin-top: 14px;
+}
+.contact-options li + li {
+  border-top: 1px solid var(--line);
+}
+.contact-options li > a,
+.contact-placeholder {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-height: 64px;
+  padding-block: 12px;
+}
+.contact-options li > a {
+  transition: color 220ms var(--motion-ease);
+}
+.contact-options li > a:hover {
+  color: var(--accent);
+}
+.contact-options li > a > svg:last-child {
+  margin-left: auto;
+}
+.contact-options li > a > span,
+.contact-placeholder > span {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+.contact-options small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.contact-options li span > span {
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+.contact-placeholder {
+  color: var(--muted);
+}
+.contact-options .contact-preview-note {
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.85fr) minmax(0, 1fr);
+  gap: 60px;
+}
+.footer nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: start;
+  gap: 12px;
+}
+.footer .contact-options {
+  min-width: 0;
+}
+.footer .contact-options h3 {
+  font-size: 15px;
+}
+.footer .contact-options li + li {
+  border-color: var(--dark-line);
+}
+.footer .contact-options small,
+.footer .contact-placeholder,
+.footer .contact-preview-note {
+  color: var(--dark-muted);
+}
+.footer .contact-options li > a:hover {
+  color: var(--accent-light);
+}
+.footer .contact-options li span > span {
+  font-size: 14px;
+}
+.footer .contact-options li > a,
+.footer .contact-placeholder {
+  min-height: 58px;
+  padding-block: 9px;
+}
+@media (min-width: 768px) and (max-width: 1099px) {
+  .footer-top {
+    grid-template-columns: 1.1fr 1fr;
+    gap: 32px;
+  }
+  .footer .contact-options {
+    grid-column: 1 / -1;
+  }
+  .footer .contact-options ul {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+  .footer .contact-options li + li {
+    border-top: 0;
+  }
+}
+@media (max-width: 767px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .footer nav {
+    grid-template-columns: 1fr 1fr;
+  }
+  .estimate-contacts {
+    max-width: none;
+  }
+  .estimate-contacts .contact-options ul {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .estimate-contacts .contact-options li + li {
+    border-top: 1px solid var(--line);
+  }
+  .cost-registration {
+    padding: 16px 14px 0;
+  }
+}
+.delivery-journey {
+  margin: 42px 0 0;
+  padding: 28px 32px 32px;
+  border: 1px solid var(--dark-line);
+  border-radius: var(--radius);
+  background: #11141666;
+}
+.journey-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: var(--text-label);
+  color: var(--dark-muted);
+}
+.journey-caption > span:last-child {
+  color: var(--accent-light);
+}
+.journey-drawing {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  overflow: visible;
+}
+.journey-drawing path {
+  vector-effect: non-scaling-stroke;
+}
+.journey-contour {
+  stroke: var(--dark-line);
+  opacity: 0.45;
+}
+.journey-track {
+  stroke: var(--dark-muted);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 6;
+}
+.journey-track-accent {
+  stroke: var(--accent-light);
+  stroke-width: 2;
+}
+.journey-guide {
+  stroke: var(--dark-line);
+}
+.journey-halo {
+  fill: #8da8ff0d;
+  stroke: #8da8ff30;
+}
+.journey-node {
+  fill: var(--dark);
+  stroke: var(--accent-light);
+  stroke-width: 2;
+}
+.journey-drawing text {
+  fill: var(--accent-light);
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+.delivery-journey .delivery-route {
+  margin-top: 0;
+  gap: 24px;
+}
+@media (min-width: 768px) {
+  .delivery-journey .route-marker,
+  .delivery-journey .route-index {
+    display: none;
+  }
+  .delivery-journey .delivery-route li {
+    padding-right: 0;
+  }
+  .delivery-journey .delivery-route li:nth-child(2) {
+    text-align: center;
+  }
+  .delivery-journey .delivery-route li:last-child {
+    text-align: right;
+  }
+  .delivery-journey .delivery-route p {
+    max-width: none;
+  }
+}
+@media (max-width: 767px) {
+  .vehicle-tabs {
+    width: 100%;
+  }
+  .vehicle-tab {
+    padding-block: 12px;
+    min-height: 76px;
+    gap: 12px;
+  }
+  .vehicle-tab strong {
+    font-size: 20px;
+  }
+  .vehicle-tab small {
+    margin-top: 3px;
+    line-height: 1.45;
+  }
+  .vehicles .section-top {
+    margin-bottom: 28px;
+  }
+  .vehicles .section-top .section-description {
+    margin-top: 16px;
+  }
+  .delivery-journey {
+    margin-top: 28px;
+    padding: 22px 20px 24px;
+  }
+  .journey-caption {
+    font-size: 11px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--dark-line);
+  }
+  .journey-drawing {
+    display: none;
+  }
+  .delivery-journey .delivery-route {
+    margin-top: 28px;
+    gap: 0;
   }
 }

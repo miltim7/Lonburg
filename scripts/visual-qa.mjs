@@ -17,21 +17,23 @@ for (const [label, width, height] of [
   await page.screenshot({ path: `output/screenshots/${label}-hero.png` });
   if (label === "mobile")
     console.log(
-      await page
-        .locator(".hero-image img")
-        .evaluate((img) => ({
-          src: img.currentSrc,
-          rect: img.getBoundingClientRect().toJSON(),
-          style: getComputedStyle(img).cssText,
-          naturalWidth: img.naturalWidth,
-        })),
+      await page.locator(".hero-image img").evaluate((img) => ({
+        src: img.currentSrc,
+        rect: img.getBoundingClientRect().toJSON(),
+        style: getComputedStyle(img).cssText,
+        naturalWidth: img.naturalWidth,
+      })),
     );
   await page.locator("#vehicles").scrollIntoViewIfNeeded();
-  await page.locator(".vehicle-panel img").evaluate((img) => img.decode());
+  await page
+    .locator(".vehicle-panel.is-active img")
+    .evaluate((img) => img.decode());
   await page.screenshot({ path: `output/screenshots/${label}-vehicles.png` });
   if (label === "desktop") {
     await page.getByRole("tab", { name: /Гибриды/ }).click();
-    await page.locator(".vehicle-panel img").evaluate((img) => img.decode());
+    await page
+      .locator(".vehicle-panel.is-active img")
+      .evaluate((img) => img.decode());
     await page.screenshot({ path: "output/screenshots/desktop-hybrid.png" });
   }
 }

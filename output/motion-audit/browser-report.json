@@ -1,0 +1,228 @@
+[
+  {
+    "name": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 960,
+      "dpr": 1
+    },
+    "cls": 0.00019205358685779963,
+    "shifts": [
+      {
+        "value": 0.00019205358685779963,
+        "time": 292.7000000011176,
+        "sources": [
+          "desktop-nav",
+          "header-cta",
+          "scroll-link",
+          "hero-route",
+          "hero-caption"
+        ]
+      }
+    ],
+    "lcpMs": 332,
+    "scroll": {
+      "samples": 391,
+      "medianFrameMs": 16.699999999999818,
+      "p95FrameMs": 17,
+      "framesOver50ms": 0,
+      "longTasks": []
+    },
+    "images": [
+      {
+        "alt": "Серебристый автомобиль в тёмной студии — концептуальная иллюстрация",
+        "src": "http://localhost:3000/_next/image?url=%2Fimages%2Fautomotive-hero.webp&w=1200&q=80",
+        "sizes": "(max-width: 429px) calc(100vw + 160px), (max-width: 767px) calc(100vw + 170px), (max-width: 1099px) 90vw, (min-width: 1600px) 75vw, 80vw",
+        "loading": "auto",
+        "cssWidth": 1152,
+        "selectedWidth": "1200",
+        "complete": true
+      },
+      {
+        "alt": "Светлый электрический кроссовер у современной архитектуры — иллюстрация категории",
+        "src": "http://localhost:3000/_next/image?url=%2Fimages%2Felectric-v2.webp&w=828&q=75",
+        "sizes": "(max-width: 767px) calc(100vw - 48px), (max-width: 1099px) calc(55vw - 21px), (max-width: 1279px) calc(60vw - 23px), (max-width: 1464px) calc(60vw - 36px), 829px",
+        "loading": "lazy",
+        "cssWidth": 828.171875,
+        "selectedWidth": "828",
+        "complete": true
+      },
+      {
+        "alt": "Серебристый кроссовер в светлой студии — концептуальная иллюстрация",
+        "src": "http://localhost:3000/_next/image?url=%2Fimages%2Fautomotive-suv.webp&w=828&q=75",
+        "sizes": "(max-width: 767px) calc(100vw - 48px), (max-width: 1099px) calc(55vw - 21px), (max-width: 1279px) calc(60vw - 23px), (max-width: 1464px) calc(60vw - 36px), 829px",
+        "loading": "lazy",
+        "cssWidth": 828.171875,
+        "selectedWidth": "828",
+        "complete": true
+      },
+      {
+        "alt": "Тёмно-зелёный бензиновый седан с открытой решёткой радиатора — иллюстрация категории",
+        "src": "http://localhost:3000/_next/image?url=%2Fimages%2Fpetrol-v2.webp&w=828&q=75",
+        "sizes": "(max-width: 767px) calc(100vw - 48px), (max-width: 1099px) calc(55vw - 21px), (max-width: 1279px) calc(60vw - 23px), (max-width: 1464px) calc(60vw - 36px), 829px",
+        "loading": "lazy",
+        "cssWidth": 828.171875,
+        "selectedWidth": "828",
+        "complete": true
+      },
+      {
+        "alt": "Кожаное сиденье и центральная консоль современного автомобиля — иллюстрация деталей салона",
+        "src": "http://localhost:3000/_next/image?url=%2Fimages%2Finterior-v2.webp&w=640&q=75",
+        "sizes": "(max-width: 767px) calc(100vw - 48px), (max-width: 1099px) calc(45.8vw - 18px), (max-width: 1279px) calc(45.8vw - 28px), (max-width: 1464px) calc(45.8vw - 45px), 615px",
+        "loading": "lazy",
+        "cssWidth": 614.53125,
+        "selectedWidth": "640",
+        "complete": true
+      },
+      {
+        "alt": "Бензиновый SUV на горной дороге в сумерках — концептуальная иллюстрация",
+        "src": "http://localhost:3000/_next/image?url=%2Fimages%2Froad-v2.webp&w=1536&q=75",
+        "sizes": "100vw",
+        "loading": "lazy",
+        "cssWidth": 1440,
+        "selectedWidth": "1536",
+        "complete": true
+      }
+    ],
+    "responses": [
+      {
+        "url": "http://localhost:3000/_next/image?url=%2Fimages%2Fautomotive-hero.webp&w=1200&q=80",
+        "status": 200,
+        "format": "image/avif"
+      },
+      {
+        "url": "http://localhost:3000/_next/image?url=%2Fimages%2Felectric-v2.webp&w=828&q=75",
+        "status": 200,
+        "format": "image/avif"
+      },
+      {
+        "url": "http://localhost:3000/_next/image?url=%2Fimages%2Fpetrol-v2.webp&w=828&q=75",
+        "status": 200,
+        "format": "image/avif"
+      },
+      {
+        "url": "http://localhost:3000/_next/image?url=%2Fimages%2Fautomotive-suv.webp&w=828&q=75",
+        "status": 200,
+        "format": "image/avif"
+      },
+      {
+        "url": "http://localhost:3000/_next/image?url=%2Fimages%2Finterior-v2.webp&w=640&q=75",
+        "status": 200,
+        "format": "image/avif"
+      },
+      {
+        "url": "http://localhost:3000/_next/image?url=%2Fimages%2Froad-v2.webp&w=1536&q=75",
+        "status": 200,
+        "format": "image/avif"
+      }
+    ],
+    "errors": []
+  },
+  {
+    "name": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "dpr": 2
+    },
+    "cls": 0,
+    "shifts": [],
+    "lcpMs": 184,
+    "scroll": {
+      "samples": 391,
+      "medianFrameMs": 16.699999999999818,
+      "p95FrameMs": 17,
+      "framesOver50ms": 0,
+      "longTasks": []
+    },
+    "images": [
+      {
+        "alt": "Серебристый автомобиль в тёмной студии — концептуальная иллюстрация",
+        "src": "http://localhost:3000/_next/image?url=%2Fimages%2Fautomotive-hero.webp&w=1200&q=80",
+        "sizes": "(max-width: 429px) calc(100vw + 160px), (max-width: 767px) calc(100vw + 170px), (max-width: 1099px) 90vw, (min-width: 1600px) 75vw, 80vw",
+        "loading": "auto",
+        "cssWidth": 550,
+        "selectedWidth": "1200",
+        "complete": true
+      },
+      {
+        "alt": "Светлый электрический кроссовер у современной архитектуры — иллюстрация категории",
+        "src": "http://localhost:3000/_next/image?url=%2Fimages%2Felectric-v2.webp&w=750&q=75",
+        "sizes": "(max-width: 767px) calc(100vw - 48px), (max-width: 1099px) calc(55vw - 21px), (max-width: 1279px) calc(60vw - 23px), (max-width: 1464px) calc(60vw - 36px), 829px",
+        "loading": "lazy",
+        "cssWidth": 342,
+        "selectedWidth": "750",
+        "complete": true
+      },
+      {
+        "alt": "Серебристый кроссовер в светлой студии — концептуальная иллюстрация",
+        "src": "http://localhost:3000/_next/image?url=%2Fimages%2Fautomotive-suv.webp&w=750&q=75",
+        "sizes": "(max-width: 767px) calc(100vw - 48px), (max-width: 1099px) calc(55vw - 21px), (max-width: 1279px) calc(60vw - 23px), (max-width: 1464px) calc(60vw - 36px), 829px",
+        "loading": "lazy",
+        "cssWidth": 342,
+        "selectedWidth": "750",
+        "complete": true
+      },
+      {
+        "alt": "Тёмно-зелёный бензиновый седан с открытой решёткой радиатора — иллюстрация категории",
+        "src": "http://localhost:3000/_next/image?url=%2Fimages%2Fpetrol-v2.webp&w=750&q=75",
+        "sizes": "(max-width: 767px) calc(100vw - 48px), (max-width: 1099px) calc(55vw - 21px), (max-width: 1279px) calc(60vw - 23px), (max-width: 1464px) calc(60vw - 36px), 829px",
+        "loading": "lazy",
+        "cssWidth": 342,
+        "selectedWidth": "750",
+        "complete": true
+      },
+      {
+        "alt": "Кожаное сиденье и центральная консоль современного автомобиля — иллюстрация деталей салона",
+        "src": "http://localhost:3000/_next/image?url=%2Fimages%2Finterior-v2.webp&w=750&q=75",
+        "sizes": "(max-width: 767px) calc(100vw - 48px), (max-width: 1099px) calc(45.8vw - 18px), (max-width: 1279px) calc(45.8vw - 28px), (max-width: 1464px) calc(45.8vw - 45px), 615px",
+        "loading": "lazy",
+        "cssWidth": 342,
+        "selectedWidth": "750",
+        "complete": true
+      },
+      {
+        "alt": "Бензиновый SUV на горной дороге в сумерках — концептуальная иллюстрация",
+        "src": "http://localhost:3000/_next/image?url=%2Fimages%2Froad-v2.webp&w=828&q=75",
+        "sizes": "100vw",
+        "loading": "lazy",
+        "cssWidth": 390,
+        "selectedWidth": "828",
+        "complete": true
+      }
+    ],
+    "responses": [
+      {
+        "url": "http://localhost:3000/_next/image?url=%2Fimages%2Fautomotive-hero.webp&w=1200&q=80",
+        "status": 200,
+        "format": "image/avif"
+      },
+      {
+        "url": "http://localhost:3000/_next/image?url=%2Fimages%2Fautomotive-suv.webp&w=750&q=75",
+        "status": 200,
+        "format": "image/avif"
+      },
+      {
+        "url": "http://localhost:3000/_next/image?url=%2Fimages%2Fpetrol-v2.webp&w=750&q=75",
+        "status": 200,
+        "format": "image/avif"
+      },
+      {
+        "url": "http://localhost:3000/_next/image?url=%2Fimages%2Felectric-v2.webp&w=750&q=75",
+        "status": 200,
+        "format": "image/avif"
+      },
+      {
+        "url": "http://localhost:3000/_next/image?url=%2Fimages%2Finterior-v2.webp&w=750&q=75",
+        "status": 200,
+        "format": "image/avif"
+      },
+      {
+        "url": "http://localhost:3000/_next/image?url=%2Fimages%2Froad-v2.webp&w=828&q=75",
+        "status": 200,
+        "format": "image/avif"
+      }
+    ],
+    "errors": []
+  }
+]

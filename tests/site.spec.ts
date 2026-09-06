@@ -2,6 +2,37 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { readFile } from "node:fs/promises";
 
+test("launch preview has honest contacts and no invented orders or prices", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.locator(".hero-facts")).toContainText("Новые и с пробегом");
+  await expect(page.locator(".cost-document > .cost-items > li")).toHaveCount(
+    4,
+  );
+  await expect(page.locator(".cost-registration li")).toHaveCount(2);
+  await expect(page.locator(".cost-registration")).toContainText(
+    "самостоятельно",
+  );
+  await expect(page.locator("#contacts .contact-placeholder")).toHaveCount(3);
+  await expect(page.locator("#contacts a")).toHaveCount(0);
+  await expect(
+    page.locator('a[href^="mailto:"], a[href^="tel:"], a[href*="t.me/"]'),
+  ).toHaveCount(0);
+  await expect(page.locator("body")).not.toContainText(
+    /Алексей|52 дня|Демонстрационная смета|₽/,
+  );
+  await expect(page.locator("#contacts")).toContainText(
+    "Заменим перед запуском",
+  );
+  await page.setViewportSize({ width: 390, height: 844 });
+  const tabs = (await page.locator(".vehicle-tabs").boundingBox())!;
+  const photos = (await page.locator(".vehicle-panels").boundingBox())!;
+  expect(Math.abs(tabs.width - photos.width)).toBeLessThan(1);
+  expect(tabs.height).toBeLessThan(300);
+});
+
 test("all required widths have no overflow, broken images, or console errors", async ({
   page,
 }) => {
@@ -97,15 +128,17 @@ test("vehicle tabs and FAQ work with keyboard", async ({ page }) => {
     "aria-selected",
     "true",
   );
-  const first = page.locator(".faq-list summary").first();
+  const first = page.locator(".faq-trigger").first();
   await first.focus();
   await page.keyboard.press("Enter");
-  await expect(page.locator(".faq-list details").first()).toHaveAttribute(
-    "open",
-    "",
+  await expect(page.locator(".faq-trigger").first()).toHaveAttribute(
+    "aria-expanded",
+    "true",
   );
-  await page.locator(".faq-list summary").nth(1).click();
-  await expect(page.locator(".faq-list details[open]")).toHaveCount(1);
+  await page.locator(".faq-trigger").nth(1).click();
+  await expect(page.locator('.faq-trigger[aria-expanded="true"]')).toHaveCount(
+    1,
+  );
 });
 
 test("form validates, never fakes sending, and downloads the real local draft", async ({
@@ -141,13 +174,18 @@ test("form validates, never fakes sending, and downloads the real local draft", 
   expect(draft).toContain("Казань");
   expect(draft).toContain("Черновик, не отправлен");
   await expect(page.getByRole("status")).toContainText("Он не отправлен");
-  await expect(page.getByRole("button", { name: "Сохранить запрос" })).toBeEnabled();
+  await expect(
+    page.getByRole("button", { name: "Сохранить запрос" }),
+  ).toBeEnabled();
   expect(sent).toEqual([]);
 });
 
 test("accessibility of desktop, mobile menu, expanded FAQ and invalid form", async ({
   page,
 }) => {
+  // Audit final colors and semantics; motion.spec.ts exercises the actual transitions.
+  // Scroll reveals otherwise let axe sample text halfway through an opacity fade.
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   // Audit the fully rendered interface, not the intermediate opacity of the entrance animation.
   await page.evaluate(async () => {
@@ -169,7 +207,7 @@ test("accessibility of desktop, mobile menu, expanded FAQ and invalid form", asy
     .analyze();
   expect(result.violations).toEqual([]);
   await page.keyboard.press("Escape");
-  await page.locator(".faq-list summary").first().click();
+  await page.locator(".faq-trigger").first().click();
   await page
     .getByRole("button", { name: "Сохранить запрос", exact: true })
     .click();

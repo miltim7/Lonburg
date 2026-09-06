@@ -27,6 +27,25 @@ export function Cost({ content }: { content: LandingPageContent["cost"] }) {
               </li>
             ))}
           </ol>
+          <div className="cost-registration">
+            <div className="cost-registration-heading">
+              <h3>{content.registrationTitle}</h3>
+              <p>{content.registrationNote}</p>
+            </div>
+            <ul className="cost-items">
+              {content.registrationItems.map((item) => (
+                <li key={item.title}>
+                  <span className="cost-index" aria-hidden="true">
+                    +
+                  </span>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
           <div className="cost-total">
             <span aria-hidden="true">=</span>
             <div>
