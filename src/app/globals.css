@@ -850,6 +850,16 @@ main:focus {
   border: 1px solid #e0e4dd;
   border-radius: var(--radius);
 }
+.form-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  border: 0;
+}
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -949,17 +959,6 @@ main:focus {
   border-top: 1px solid var(--line);
   padding-top: 17px;
   margin-top: 20px;
-}
-.download-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: #eaf0ff;
-  color: #2449ae;
-  padding: 10px 14px;
-  margin-top: 12px;
-  border-radius: 3px;
-  min-height: 44px;
 }
 /* Timing and documents */
 .timing-top {
@@ -3603,7 +3602,7 @@ main[id],
 }
 .estimate-contacts .contact-options ul {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 32px;
 }
 .estimate-contacts .contact-options li + li {
@@ -3707,7 +3706,7 @@ main[id],
   }
   .footer .contact-options ul {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 24px;
   }
   .footer .contact-options li + li {
@@ -3742,6 +3741,151 @@ main[id],
   border: 1px solid var(--dark-line);
   border-radius: var(--radius);
   background: #11141666;
+}
+
+/* Additional business directions and the pre-purchase recycling guide. */
+.recycling-guide {
+  grid-column: 1 / -1;
+  padding-top: 36px;
+  border-top: 1px solid var(--dark-line);
+}
+.recycling-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.recycling-intro h3 {
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 500;
+  line-height: 1.35;
+}
+.recycling-intro p,
+.recycling-factors p,
+.recycling-note {
+  color: var(--dark-muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.recycling-factors {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  margin-top: 32px;
+}
+.recycling-factors li > span {
+  color: var(--accent-light);
+  font-size: 11px;
+}
+.recycling-factors h4 {
+  margin: 12px 0 8px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.recycling-note {
+  margin-top: 28px;
+  padding-left: 18px;
+  border-left: 2px solid var(--accent-light);
+  max-width: 940px;
+}
+.directions {
+  background: var(--surface);
+  border-block: 1px solid var(--line);
+}
+.directions .section-description {
+  max-width: 620px;
+}
+.directions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+.direction-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 32px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.direction-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  color: var(--accent);
+  margin-bottom: 30px;
+}
+.direction-symbol span {
+  color: var(--muted);
+  font-size: 11px;
+}
+.direction-card h3 {
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-weight: 500;
+  line-height: 1.3;
+  max-width: 440px;
+}
+.direction-card > p {
+  margin-top: 18px;
+  margin-bottom: 24px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.direction-card .button {
+  margin-top: auto;
+  color: var(--accent);
+}
+.direction-card .button:hover {
+  color: var(--accent-hover);
+}
+.directions-note {
+  margin-top: 22px;
+  font-size: 13px;
+  color: var(--muted);
+}
+@media (max-width: 767px) {
+  .recycling-intro,
+  .recycling-factors,
+  .directions-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .recycling-intro {
+    gap: 14px;
+  }
+  .recycling-factors li {
+    padding-top: 20px;
+    border-top: 1px solid var(--dark-line);
+  }
+  .recycling-factors h4 {
+    margin-top: 8px;
+  }
+  .recycling-intro p,
+  .recycling-factors p,
+  .recycling-note {
+    font-size: 15px;
+  }
+  .directions-grid {
+    margin-top: 28px;
+    gap: 16px;
+  }
+  .direction-card {
+    padding: 24px;
+  }
+  .direction-symbol {
+    margin-bottom: 22px;
+  }
+  .direction-card > p {
+    font-size: 16px;
+  }
+  .direction-card .button {
+    gap: 16px;
+    padding-right: 0;
+    font-size: 14px;
+  }
 }
 .journey-caption {
   display: flex;

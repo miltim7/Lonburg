@@ -7,6 +7,7 @@ import { Hero } from "@/components/sections/hero";
 import { Vehicles } from "@/components/sections/vehicles";
 import { Process } from "@/components/sections/process";
 import { Cost } from "@/components/sections/cost";
+import { Directions } from "@/components/sections/directions";
 import { Estimate } from "@/components/sections/estimate";
 import {
   Timing,
@@ -47,6 +48,7 @@ export default async function Home() {
           <Contracts content={content.contracts} />
           <Delivery content={content.delivery} />
           <Advantages content={content.advantages} />
+          <Directions content={content.directions} />
           <FAQ content={content.faq} />
           <FinalCta
             content={content.finalCta}

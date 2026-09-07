@@ -64,7 +64,16 @@ export interface VehicleCategory extends TextItem {
   cta: CTA;
 }
 export type EstimateFieldName =
-  "model" | "city" | "name" | "contact" | "comment";
+  | "model"
+  | "condition"
+  | "year"
+  | "power"
+  | "engineVolume"
+  | "city"
+  | "name"
+  | "contact"
+  | "registration"
+  | "comment";
 export type EstimateValues = Record<EstimateFieldName, string> & {
   vehicleType?: string;
 };
@@ -83,13 +92,11 @@ export interface EstimateContent extends SectionIntro {
   cta: string;
   pending: string;
   unavailable: string;
+  submitted: string;
+  failed: string;
   privacy: string;
   note: string;
   validation: { required: string; contact: string; tooLong: string };
-  download: string;
-  downloaded: string;
-  downloadFilename: string;
-  downloadHeading: string;
   steps: string[];
   optionalLabel: string;
   extraFieldsLabel: string;
@@ -110,6 +117,12 @@ export interface LandingPageContent {
     optionalNote: string;
     cta: CTA;
     documentLabel: string;
+    recycling: {
+      title: string;
+      description: string;
+      factors: TextItem[];
+      note: string;
+    };
   };
   estimate: EstimateContent;
   timing: SectionIntro & {
@@ -130,5 +143,9 @@ export interface LandingPageContent {
     caption: string;
   };
   faq: SectionIntro & { items: FAQItem[] };
+  directions: SectionIntro & {
+    items: (TextItem & { id: string; cta: CTA })[];
+    note: string;
+  };
   finalCta: SectionIntro & { cta: CTA; image: Media };
 }

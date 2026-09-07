@@ -4,6 +4,9 @@ import type {
   EstimateValues,
 } from "@/types/content";
 export type EstimateErrors = Partial<Record<EstimateFieldName, string>>;
+export const estimateFormName = "lonburg-request";
+const estimateFormEndpoint =
+  process.env.NEXT_PUBLIC_ESTIMATE_FORM_ENDPOINT?.trim() || "/__forms.html";
 export function validateEstimate(
   values: EstimateValues,
   content: EstimateContent,
@@ -26,37 +29,32 @@ export function validateEstimate(
   }
   return errors;
 }
-export type EstimateSubmissionResult = { status: "unavailable" };
-// Integration boundary: replace with your API/CRM adapter and handle a verified response.
-// Never log or persist personal data here. No network request is made in this version.
+export type EstimateSubmissionResult = { status: "success" | "failed" };
 export async function submitEstimate(
-  _values: EstimateValues,
-): Promise<EstimateSubmissionResult> {
-  void _values;
-  return { status: "unavailable" };
-}
-export function downloadEstimate(
   values: EstimateValues,
-  content: EstimateContent,
-) {
-  const text = [
-    content.downloadHeading,
-    ...(values.vehicleType
-      ? [`${content.categoryLabel}: ${values.vehicleType}`]
-      : []),
-    "",
-    ...content.fields.map(
-      (field) => `${field.label}: ${values[field.name].trim() || "—"}`,
-    ),
-  ].join("\r\n");
-  const url = URL.createObjectURL(
-    new Blob(["\uFEFF", text], { type: "text/plain;charset=utf-8" }),
-  );
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = content.downloadFilename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+): Promise<EstimateSubmissionResult> {
+  const body = new URLSearchParams();
+  body.set("form-name", estimateFormName);
+  body.set("bot-field", "");
+  body.set("vehicleType", values.vehicleType ?? "");
+  body.set("model", values.model.trim());
+  body.set("condition", values.condition.trim());
+  body.set("year", values.year.trim());
+  body.set("power", values.power.trim());
+  body.set("engineVolume", values.engineVolume.trim());
+  body.set("city", values.city.trim());
+  body.set("name", values.name.trim());
+  body.set("contact", values.contact.trim());
+  body.set("registration", values.registration.trim());
+  body.set("comment", values.comment.trim());
+  try {
+    const response = await fetch(estimateFormEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body.toString(),
+    });
+    return { status: response.ok ? "success" : "failed" };
+  } catch {
+    return { status: "failed" };
+  }
 }

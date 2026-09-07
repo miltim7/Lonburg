@@ -1,13 +1,13 @@
 "use client";
 import { useRef, useState, type ReactNode } from "react";
-import { ChevronDown, Download, Info, X } from "lucide-react";
+import { ChevronDown, Info, Send, X } from "lucide-react";
 import type {
   EstimateContent,
   EstimateField,
   EstimateValues,
 } from "@/types/content";
 import {
-  downloadEstimate,
+  estimateFormName,
   submitEstimate,
   validateEstimate,
   type EstimateErrors,
@@ -25,16 +25,21 @@ export function Estimate({
   const { category, selectCategory } = useRequest();
   const [values, setValues] = useState<EstimateValues>({
     model: "",
+    condition: "",
+    year: "",
+    power: "",
+    engineVolume: "",
     city: "",
     name: "",
     contact: "",
+    registration: "",
     comment: "",
   });
   const [errors, setErrors] = useState<EstimateErrors>({});
   const [pending, setPending] = useState(false);
-  const [savedRequest, setSavedRequest] = useState<string | null>(null);
-  const currentRequest = { ...values, vehicleType: category ?? undefined };
-  const downloaded = savedRequest === JSON.stringify(currentRequest);
+  const [submission, setSubmission] = useState<"success" | "failed" | null>(
+    null,
+  );
   const form = useRef<HTMLFormElement>(null);
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -42,7 +47,7 @@ export function Estimate({
     const request = { ...values, vehicleType: category ?? undefined };
     const next = validateEstimate(request, content);
     setErrors(next);
-    setSavedRequest(null);
+    setSubmission(null);
     if (Object.keys(next).length) {
       const first = content.fields.find(
         (field) => field.name === Object.keys(next)[0],
@@ -61,9 +66,21 @@ export function Estimate({
     setPending(true);
     try {
       const result = await submitEstimate(request);
-      if (result.status === "unavailable") {
-        downloadEstimate(request, content);
-        setSavedRequest(JSON.stringify(request));
+      setSubmission(result.status);
+      if (result.status === "success") {
+        setValues({
+          model: "",
+          condition: "",
+          year: "",
+          power: "",
+          engineVolume: "",
+          city: "",
+          name: "",
+          contact: "",
+          registration: "",
+          comment: "",
+        });
+        selectCategory(null);
       }
     } finally {
       setPending(false);
@@ -86,7 +103,7 @@ export function Estimate({
       ) => {
         setValues({ ...values, [field.name]: event.target.value });
         setErrors({ ...errors, [field.name]: undefined });
-        setSavedRequest(null);
+        setSubmission(null);
       },
     };
     return (
@@ -141,7 +158,19 @@ export function Estimate({
           noValidate
           className="estimate-form"
           aria-busy={pending}
+          name={estimateFormName}
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
         >
+          <input type="hidden" name="form-name" value={estimateFormName} />
+          <p className="form-honeypot" aria-hidden="true">
+            <label>
+              Не заполняйте это поле
+              <input name="bot-field" tabIndex={-1} autoComplete="off" />
+            </label>
+          </p>
+          <input type="hidden" name="vehicleType" value={category ?? ""} />
           {category && (
             <div className="request-category">
               <p>
@@ -153,7 +182,7 @@ export function Estimate({
                 aria-label={content.clearCategory}
                 onClick={() => {
                   selectCategory(null);
-                  setSavedRequest(null);
+                  setSubmission(null);
                 }}
               >
                 <X size={17} aria-hidden="true" />
@@ -186,11 +215,12 @@ export function Estimate({
             disabled={pending}
           >
             {pending ? content.pending : content.cta}
-            <Download size={19} aria-hidden="true" />
+            <Send size={19} aria-hidden="true" />
           </button>
           <p className="form-privacy">{content.privacy}</p>
           <div className="form-status" role="status" aria-live="polite">
-            {downloaded && <p>{content.downloaded}</p>}
+            {submission === "success" && <p>{content.submitted}</p>}
+            {submission === "failed" && <p>{content.failed}</p>}
           </div>
         </form>
         <div className="estimate-contacts" id="contacts">

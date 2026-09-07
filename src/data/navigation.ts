@@ -3,11 +3,13 @@ export const navigation: CTA[] = [
   { label: "Автомобили", href: "#vehicles" },
   { label: "Как это работает", href: "#process" },
   { label: "Стоимость", href: "#cost" },
+  { label: "Заявка", href: "#estimate" },
   { label: "Сроки", href: "#timing" },
+  { label: "Техника", href: "#directions" },
   { label: "FAQ", href: "#faq" },
 ];
 export const mainCta: CTA = {
-  label: "Рассчитать автомобиль",
+  label: "Оставить заявку",
   href: "#estimate",
 };
 export const interfaceText = {

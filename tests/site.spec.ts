@@ -1,6 +1,5 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { readFile } from "node:fs/promises";
 
 test("launch preview has honest contacts and no invented orders or prices", async ({
   page,
@@ -15,15 +14,20 @@ test("launch preview has honest contacts and no invented orders or prices", asyn
   await expect(page.locator(".cost-registration")).toContainText(
     "самостоятельно",
   );
-  await expect(page.locator("#contacts .contact-placeholder")).toHaveCount(3);
-  await expect(page.locator("#contacts a")).toHaveCount(0);
-  await expect(
-    page.locator('a[href^="mailto:"], a[href^="tel:"], a[href*="t.me/"]'),
-  ).toHaveCount(0);
+  await expect(page.locator("#contacts .contact-placeholder")).toHaveCount(0);
+  await expect(page.locator('#contacts a[href^="tel:"]')).toHaveAttribute(
+    "href",
+    "tel:+79111365346",
+  );
+  await expect(page.locator('#contacts a[href^="mailto:"]')).toHaveAttribute(
+    "href",
+    "mailto:bovart.1979@gmail.com",
+  );
+  await expect(page.locator('a[href*="t.me/"]')).toHaveCount(0);
   await expect(page.locator("body")).not.toContainText(
     /Алексей|52 дня|Демонстрационная смета|₽/,
   );
-  await expect(page.locator("#contacts")).toContainText(
+  await expect(page.locator("#contacts")).not.toContainText(
     "Заменим перед запуском",
   );
   await page.setViewportSize({ width: 390, height: 844 });
@@ -141,43 +145,52 @@ test("vehicle tabs and FAQ work with keyboard", async ({ page }) => {
   );
 });
 
-test("form validates, never fakes sending, and downloads the real local draft", async ({
+test("form validates and submits a real Netlify Forms request", async ({
   page,
 }) => {
-  const sent: string[] = [];
-  page.on("request", (request) => {
-    if (request.method() === "POST") sent.push(request.url());
+  const submissions: string[] = [];
+  await page.route("**/__forms.html", async (route) => {
+    const request = route.request();
+    if (request.method() === "POST") {
+      submissions.push(request.postData() ?? "");
+      await route.fulfill({ status: 200, body: "" });
+      return;
+    }
+    await route.fallback();
   });
   await page.goto("/");
-  await page
-    .getByRole("button", { name: "Сохранить запрос", exact: true })
-    .click();
+  await page.getByRole("button", { name: "Отправить заявку" }).click();
   await expect(page.locator(".field-error")).toHaveCount(3);
   await expect(page.getByLabel("Марка / модель")).toBeFocused();
   await page.getByLabel("Марка / модель").fill("Тестовая модель");
+  await page.getByLabel("Состояние").fill("Новый");
+  await page.getByLabel("Год выпуска").fill("2026");
+  await page.getByLabel("Мощность").fill("180 л.с.");
+  await page.getByLabel("Объём двигателя").fill("1.5 л");
   await page.getByLabel("Город доставки").fill("Казань");
   await expect(page.getByLabel("Ваше имя")).toBeHidden();
   await page.getByLabel("Телефон / Telegram").fill("не контакт");
-  await page
-    .getByRole("button", { name: "Сохранить запрос", exact: true })
-    .click();
+  await page.getByRole("button", { name: "Отправить заявку" }).click();
   await expect(page.locator("#error-contact")).toBeVisible();
   await page.getByLabel("Телефон / Telegram").fill("@example_user");
-  const downloadPromise = page.waitForEvent("download");
-  await page.getByRole("button", { name: "Сохранить запрос" }).click();
-  const download = await downloadPromise;
-  expect(download.suggestedFilename()).toBe("lonburg-request.txt");
-  const path = await download.path();
-  expect(path).toBeTruthy();
-  const draft = await readFile(path!, "utf8");
-  expect(draft).toContain("Тестовая модель");
-  expect(draft).toContain("Казань");
-  expect(draft).toContain("Черновик, не отправлен");
-  await expect(page.getByRole("status")).toContainText("Он не отправлен");
+  await page.getByText("Добавить оформление и пожелания").click();
+  await page.getByLabel("Таможня и утильсбор").fill("Через Лонбург");
+  await page.getByRole("button", { name: "Отправить заявку" }).click();
+  await expect(page.getByRole("status")).toContainText("Заявка отправлена");
   await expect(
-    page.getByRole("button", { name: "Сохранить запрос" }),
+    page.getByRole("button", { name: "Отправить заявку" }),
   ).toBeEnabled();
-  expect(sent).toEqual([]);
+  expect(submissions).toHaveLength(1);
+  const submitted = new URLSearchParams(submissions[0]);
+  expect(submitted?.get("form-name")).toBe("lonburg-request");
+  expect(submitted?.get("model")).toBe("Тестовая модель");
+  expect(submitted?.get("condition")).toBe("Новый");
+  expect(submitted?.get("year")).toBe("2026");
+  expect(submitted?.get("power")).toBe("180 л.с.");
+  expect(submitted?.get("engineVolume")).toBe("1.5 л");
+  expect(submitted?.get("city")).toBe("Казань");
+  expect(submitted?.get("contact")).toBe("@example_user");
+  expect(submitted?.get("registration")).toBe("Через Лонбург");
 });
 
 test("accessibility of desktop, mobile menu, expanded FAQ and invalid form", async ({
@@ -208,9 +221,7 @@ test("accessibility of desktop, mobile menu, expanded FAQ and invalid form", asy
   expect(result.violations).toEqual([]);
   await page.keyboard.press("Escape");
   await page.locator(".faq-trigger").first().click();
-  await page
-    .getByRole("button", { name: "Сохранить запрос", exact: true })
-    .click();
+  await page.getByRole("button", { name: "Отправить заявку" }).click();
   result = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
     .analyze();

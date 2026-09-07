@@ -54,6 +54,22 @@ export function Cost({ content }: { content: LandingPageContent["cost"] }) {
             </div>
           </div>
         </div>
+        <aside className="recycling-guide" aria-labelledby="recycling-title">
+          <div className="recycling-intro">
+            <h3 id="recycling-title">{content.recycling.title}</h3>
+            <p>{content.recycling.description}</p>
+          </div>
+          <ul className="recycling-factors">
+            {content.recycling.factors.map((factor, index) => (
+              <li key={factor.title}>
+                <span aria-hidden="true">0{index + 1}</span>
+                <h4>{factor.title}</h4>
+                <p>{factor.description}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="recycling-note">{content.recycling.note}</p>
+        </aside>
       </div>
     </section>
   );

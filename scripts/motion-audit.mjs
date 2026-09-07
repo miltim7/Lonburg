@@ -144,6 +144,7 @@ try {
       "contracts",
       "delivery",
       "approach",
+      "directions",
       "faq",
     ]) {
       await page.locator(`#${id}`).scrollIntoViewIfNeeded();

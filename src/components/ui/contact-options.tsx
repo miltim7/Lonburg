@@ -41,13 +41,17 @@ export function ContactOptions({
         ]
       : []),
   ];
+  const hasContacts = options.some((option) => option.href);
+  const visibleOptions = hasContacts
+    ? options.filter((option) => option.href)
+    : options;
   return (
     <div
       className={`contact-options ${compact ? "contact-options--compact" : ""}`}
     >
       <h3>{compact ? "Связаться с нами" : "Удобнее обсудить напрямую?"}</h3>
       <ul>
-        {options.map(({ label, value, href, Icon }) => {
+        {visibleOptions.map(({ label, value, href, Icon }) => {
           const content = (
             <>
               <Icon size={18} aria-hidden="true" />
@@ -69,7 +73,7 @@ export function ContactOptions({
           );
         })}
       </ul>
-      {options.some((option) => !option.href) && (
+      {!hasContacts && (
         <p className="contact-preview-note">
           Контакты в макете — для примера. Заменим перед запуском.
         </p>
