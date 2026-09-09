@@ -5,6 +5,7 @@ import type {
 } from "@/types/content";
 export type EstimateErrors = Partial<Record<EstimateFieldName, string>>;
 export const estimateFormName = "lonburg-request";
+export const estimateFormSubject = "Новая заявка с сайта Лонбург";
 const estimateFormEndpoint =
   process.env.NEXT_PUBLIC_ESTIMATE_FORM_ENDPOINT?.trim() || "/";
 export function validateEstimate(
@@ -35,6 +36,7 @@ export async function submitEstimate(
 ): Promise<EstimateSubmissionResult> {
   const body = new URLSearchParams();
   body.set("form-name", estimateFormName);
+  body.set("subject", estimateFormSubject);
   body.set("bot-field", "");
   body.set("vehicleType", values.vehicleType ?? "");
   body.set("model", values.model.trim());

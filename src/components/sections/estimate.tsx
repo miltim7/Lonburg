@@ -8,6 +8,7 @@ import type {
 } from "@/types/content";
 import {
   estimateFormName,
+  estimateFormSubject,
   submitEstimate,
   validateEstimate,
   type EstimateErrors,
@@ -159,11 +160,13 @@ export function Estimate({
           className="estimate-form"
           aria-busy={pending}
           name={estimateFormName}
+          action="/"
           method="POST"
           data-netlify="true"
           data-netlify-honeypot="bot-field"
         >
           <input type="hidden" name="form-name" value={estimateFormName} />
+          <input type="hidden" name="subject" value={estimateFormSubject} />
           <p className="form-honeypot" aria-hidden="true">
             <label>
               Не заполняйте это поле

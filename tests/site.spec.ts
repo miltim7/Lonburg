@@ -190,6 +190,7 @@ test("form validates and submits a Netlify Forms request", async ({ page }) => {
   expect(submissions).toHaveLength(1);
   const submitted = new URLSearchParams(submissions[0]);
   expect(submitted?.get("form-name")).toBe("lonburg-request");
+  expect(submitted?.get("subject")).toBe("Новая заявка с сайта Лонбург");
   expect(submitted?.get("model")).toBe("Тестовая модель");
   expect(submitted?.get("condition")).toBe("Новый");
   expect(submitted?.get("year")).toBe("2026");
