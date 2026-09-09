@@ -154,11 +154,9 @@ test("vehicle tabs and FAQ work with keyboard", async ({ page }) => {
   );
 });
 
-test("form validates and submits a real Netlify Forms request", async ({
-  page,
-}) => {
+test("form validates and submits a Netlify Forms request", async ({ page }) => {
   const submissions: string[] = [];
-  await page.route("**/__forms.html", async (route) => {
+  await page.route("**/", async (route) => {
     const request = route.request();
     if (request.method() === "POST") {
       submissions.push(request.postData() ?? "");

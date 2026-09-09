@@ -6,7 +6,7 @@ import type {
 export type EstimateErrors = Partial<Record<EstimateFieldName, string>>;
 export const estimateFormName = "lonburg-request";
 const estimateFormEndpoint =
-  process.env.NEXT_PUBLIC_ESTIMATE_FORM_ENDPOINT?.trim() || "/__forms.html";
+  process.env.NEXT_PUBLIC_ESTIMATE_FORM_ENDPOINT?.trim() || "/";
 export function validateEstimate(
   values: EstimateValues,
   content: EstimateContent,
