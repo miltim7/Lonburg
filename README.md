@@ -54,6 +54,8 @@ Next.js требует Node.js 20.9+. Для совместимости со в�
 
 Netlify в этой схеме — только временный технический приёмник для тестового домена. При финальном хостинге замените `NEXT_PUBLIC_ESTIMATE_FORM_ENDPOINT` на реальный endpoint: API сайта, CRM, Make/Zapier/webhook, Telegram-бот или другой согласованный канал. Если временно остаётесь на Netlify, проверьте: Forms → `lonburg-request` → Form notifications → Add notification → Email notification.
 
+Для уведомлений в Telegram есть функция `netlify/functions/form-to-telegram.js`. В Netlify нужно добавить переменные окружения `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID`, затем создать Forms webhook на адрес `https://lonburg-auto.ru/.netlify/functions/form-to-telegram` для формы `lonburg-request`.
+
 Точка подключения будущей CRM/бота — `submitEstimate()` в `src/lib/estimate.ts`. При интеграции замените Netlify-адаптер, расширьте тип результата, добавьте серверную валидацию, обработку ошибок, защиту от повторных запросов и согласованные документы обработки данных. Подтверждение показывается только после успешного ответа на POST. Сообщения формы редактируются в `src/data/landing.ts`.
 
 Никаких формул расчёта и фиктивных тарифов нет. Сейчас блок работает как расширенная заявка, которая собирает параметры для ручного расчёта. Будущий калькулятор можно поставить на место `Estimate`, сохранив якорь `#estimate`; реальные тарифы и коэффициенты должны поступать из согласованного источника.
