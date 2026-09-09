@@ -160,7 +160,7 @@ export function Estimate({
           className="estimate-form"
           aria-busy={pending}
           name={estimateFormName}
-          action="/"
+          action="/__forms.html"
           method="POST"
           data-netlify="true"
           data-netlify-honeypot="bot-field"

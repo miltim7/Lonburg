@@ -50,7 +50,7 @@ Next.js требует Node.js 20.9+. Для совместимости со в�
 
 Изолированный компонент `src/components/sections/estimate.tsx` принимает `EstimateContent` и серверный блок контактов через props. Поля: модель, состояние, год выпуска, мощность, объём двигателя, город, телефон/Telegram, имя, выбор по таможне/утильсбору и комментарий.
 
-Форма проверяет обязательные поля, допустимую длину, телефон и Telegram. Отправка идёт `application/x-www-form-urlencoded` POST на адрес из `NEXT_PUBLIC_ESTIMATE_FORM_ENDPOINT`. Для Netlify используется `/`: статический скелет формы лежит в `public/__forms.html`, а `form-name=lonburg-request` позволяет Netlify принять заявку.
+Форма проверяет обязательные поля, допустимую длину, телефон и Telegram. Отправка идёт `application/x-www-form-urlencoded` POST на адрес из `NEXT_PUBLIC_ESTIMATE_FORM_ENDPOINT`. Для Netlify используется `/__forms.html`: статический скелет формы лежит в `public/__forms.html`, а `form-name=lonburg-request` позволяет Netlify принять заявку.
 
 Netlify в этой схеме — только временный технический приёмник для тестового домена. При финальном хостинге замените `NEXT_PUBLIC_ESTIMATE_FORM_ENDPOINT` на реальный endpoint: API сайта, CRM, Make/Zapier/webhook, Telegram-бот или другой согласованный канал. Если временно остаётесь на Netlify, проверьте: Forms → `lonburg-request` → Form notifications → Add notification → Email notification.
 
