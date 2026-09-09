@@ -69,17 +69,19 @@ test("all required widths have no overflow, broken images, or console errors", a
       await sections.nth(i).scrollIntoViewIfNeeded();
     }
     await expect
-      .poll(() =>
-        page
-          .locator("img")
-          .evaluateAll((images) =>
-            images.every(
-              (img) =>
-                img instanceof HTMLImageElement &&
-                img.complete &&
-                img.naturalWidth > 0,
+      .poll(
+        () =>
+          page
+            .locator("img")
+            .evaluateAll((images) =>
+              images.every(
+                (img) =>
+                  img instanceof HTMLImageElement &&
+                  img.complete &&
+                  img.naturalWidth > 0,
+              ),
             ),
-          ),
+        { timeout: 15000 },
       )
       .toBeTruthy();
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));

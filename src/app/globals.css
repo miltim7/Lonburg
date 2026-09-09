@@ -3857,6 +3857,7 @@ main[id],
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   margin-top: 40px;
+  align-items: stretch;
 }
 .direction-card {
   display: flex;
@@ -3892,24 +3893,46 @@ main[id],
   color: var(--muted);
   line-height: 1.8;
 }
+.machinery-gallery-panel {
+  margin-top: 24px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+.machinery-gallery-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+.machinery-gallery-heading span {
+  order: 2;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+.machinery-gallery-heading h3 {
+  max-width: 520px;
+  font-size: clamp(20px, 1.9vw, 26px);
+  font-weight: 500;
+  line-height: 1.35;
+}
 .machinery-gallery {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
   width: 100%;
-  margin: 2px 0 26px;
 }
 .machinery-gallery figure {
   position: relative;
   min-width: 0;
-  aspect-ratio: 1.28;
+  aspect-ratio: 1.16;
   overflow: hidden;
   border-radius: var(--radius);
   background: var(--surface);
-}
-.machinery-gallery figure:first-child {
-  grid-column: 1 / -1;
-  aspect-ratio: 2.05;
 }
 .machinery-gallery img {
   object-fit: cover;
@@ -3995,12 +4018,25 @@ main[id],
   .direction-card > p {
     font-size: 16px;
   }
-  .machinery-gallery {
-    gap: 8px;
-    margin-bottom: 22px;
+  .machinery-gallery-panel {
+    margin-top: 16px;
+    padding: 18px;
   }
-  .machinery-gallery figure:first-child {
-    aspect-ratio: 1.45;
+  .machinery-gallery-heading {
+    display: block;
+    margin-bottom: 16px;
+  }
+  .machinery-gallery-heading span {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 10px;
+  }
+  .machinery-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .machinery-gallery figure {
+    aspect-ratio: 1.05;
   }
   .direction-card .button {
     gap: 16px;
