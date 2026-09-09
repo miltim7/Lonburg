@@ -15,7 +15,7 @@ export function LandingMotion() {
 
       const targets = Array.from(
         document.querySelectorAll<HTMLElement>(
-          ".section .section-heading, .vehicle-showcase, .process-track > li, .process-note, .cost-document, .recycling-guide, .direction-card, .estimate-form, .time-value, .timing-bottom, .contracts-visual, .delivery-route > li, .interior-figure, .advantages-list > li, .faq-list, .final-inner",
+          ".section .section-heading, .vehicle-showcase, .russia-selection-list > li, .process-track > li, .process-note, .cost-document, .recycling-guide, .direction-card, .estimate-form, .time-value, .timing-bottom, .contracts-visual, .delivery-route > li, .interior-figure, .advantages-list > li, .faq-list, .final-inner",
         ),
       );
       const reveal = (element: HTMLElement) => {

@@ -1,6 +1,7 @@
 import type { CTA } from "@/types/content";
 export const navigation: CTA[] = [
   { label: "Автомобили", href: "#vehicles" },
+  { label: "Подбор РФ", href: "#russia-selection" },
   { label: "Как это работает", href: "#process" },
   { label: "Стоимость", href: "#cost" },
   { label: "Заявка", href: "#estimate" },

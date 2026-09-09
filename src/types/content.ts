@@ -142,9 +142,14 @@ export interface LandingPageContent {
     image: Media;
     caption: string;
   };
+  russiaSelection: SectionIntro & {
+    items: TextItem[];
+    cta: CTA;
+    note: string;
+  };
   faq: SectionIntro & { items: FAQItem[] };
   directions: SectionIntro & {
-    items: (TextItem & { id: string; cta: CTA })[];
+    items: (TextItem & { id: string; cta: CTA; images?: Media[] })[];
     note: string;
   };
   finalCta: SectionIntro & { cta: CTA; image: Media };

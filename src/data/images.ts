@@ -44,3 +44,26 @@ export const images = {
     position: "center 60%",
   },
 } satisfies Record<string, Media>;
+
+export const machineryImages = [
+  {
+    src: "/images/machinery-1.webp",
+    alt: "Красный грузовой кран-манипулятор в Китае",
+    position: "center",
+  },
+  {
+    src: "/images/machinery-2.webp",
+    alt: "Красная автобетононасосная техника Sany на стоянке",
+    position: "center",
+  },
+  {
+    src: "/images/machinery-3.webp",
+    alt: "Белая автобетононасосная техника XCMG на площадке",
+    position: "center",
+  },
+  {
+    src: "/images/machinery-4.webp",
+    alt: "Белая строительная техника с крановой установкой",
+    position: "center",
+  },
+] satisfies Media[];

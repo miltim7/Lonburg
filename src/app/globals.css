@@ -3743,7 +3743,65 @@ main[id],
   background: #11141666;
 }
 
-/* Additional business directions and the pre-purchase recycling guide. */
+/* Russia sourcing, additional directions and the pre-purchase recycling guide. */
+.russia-selection {
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+.russia-selection-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 86px;
+  align-items: start;
+}
+.russia-selection .button {
+  margin-top: 30px;
+  color: var(--accent);
+}
+.russia-selection .button:hover {
+  color: var(--accent-hover);
+}
+.russia-selection-note {
+  max-width: 420px;
+  margin-top: 28px;
+  padding-left: 16px;
+  border-left: 2px solid #c7cec4;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.russia-selection-list {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.russia-selection-list li {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 22px;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--line);
+}
+.russia-selection-list li > span {
+  display: inline-flex;
+  width: 54px;
+  height: 54px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--accent);
+}
+.russia-selection-list h3 {
+  font-size: 18px;
+}
+.russia-selection-list p {
+  max-width: 540px;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
 .recycling-guide {
   grid-column: 1 / -1;
   padding-top: 36px;
@@ -3834,6 +3892,39 @@ main[id],
   color: var(--muted);
   line-height: 1.8;
 }
+.machinery-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
+  margin: 2px 0 26px;
+}
+.machinery-gallery figure {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1.28;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.machinery-gallery figure:first-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 2.05;
+}
+.machinery-gallery img {
+  object-fit: cover;
+}
+.machinery-gallery figcaption {
+  position: absolute;
+  left: 10px;
+  bottom: 9px;
+  padding: 3px 7px;
+  background: #111416cc;
+  color: var(--light);
+  border-radius: 3px;
+  font-size: 12px;
+  line-height: 1.4;
+}
 .direction-card .button {
   margin-top: auto;
   color: var(--accent);
@@ -3847,6 +3938,29 @@ main[id],
   color: var(--muted);
 }
 @media (max-width: 767px) {
+  .russia-selection-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .russia-selection-note {
+    max-width: none;
+    font-size: 15px;
+  }
+  .russia-selection-list li {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 16px;
+    padding: 24px 0;
+  }
+  .russia-selection-list li > span {
+    width: 44px;
+    height: 44px;
+  }
+  .russia-selection-list h3 {
+    font-size: 19px;
+  }
+  .russia-selection-list p {
+    font-size: 16px;
+  }
   .recycling-intro,
   .recycling-factors,
   .directions-grid {
@@ -3880,6 +3994,13 @@ main[id],
   }
   .direction-card > p {
     font-size: 16px;
+  }
+  .machinery-gallery {
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+  .machinery-gallery figure:first-child {
+    aspect-ratio: 1.45;
   }
   .direction-card .button {
     gap: 16px;

@@ -137,6 +137,7 @@ try {
     await page.emulateMedia({ reducedMotion: "reduce" });
     for (const id of [
       "vehicles",
+      "russia-selection",
       "process",
       "cost",
       "estimate",

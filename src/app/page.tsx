@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Hero } from "@/components/sections/hero";
 import { Vehicles } from "@/components/sections/vehicles";
+import { RussiaSelection } from "@/components/sections/russia-selection";
 import { Process } from "@/components/sections/process";
 import { Cost } from "@/components/sections/cost";
 import { Directions } from "@/components/sections/directions";
@@ -38,6 +39,7 @@ export default async function Home() {
             content={content.vehicles}
             tabLabel={interfaceText.vehicleTabs}
           />
+          <RussiaSelection content={content.russiaSelection} />
           <Process content={content.process} />
           <Cost content={content.cost} />
           <Estimate

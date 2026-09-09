@@ -7,6 +7,13 @@ test("launch preview has honest contacts and no invented orders or prices", asyn
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator(".hero-facts")).toContainText("Новые и с пробегом");
+  await expect(page.locator("#russia-selection")).toContainText(
+    "Профессиональный подбор",
+  );
+  await expect(page.locator("#directions")).toContainText(
+    "Крупная строительная техника",
+  );
+  await expect(page.locator(".machinery-gallery figure")).toHaveCount(4);
   await expect(page.locator(".cost-document > .cost-items > li")).toHaveCount(
     4,
   );
