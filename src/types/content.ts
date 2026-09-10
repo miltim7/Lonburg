@@ -5,6 +5,7 @@ export interface CTA {
 export interface Media {
   src: string;
   alt: string;
+  fullSrc?: string;
   position?: string;
   blurDataURL?: string;
 }

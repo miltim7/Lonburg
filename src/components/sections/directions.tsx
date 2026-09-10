@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { Construction, Cpu } from "lucide-react";
 import type { LandingPageContent } from "@/types/content";
 import { ButtonLink, SectionHeading } from "@/components/ui/primitives";
+import { MachineryGallery } from "@/components/sections/machinery-gallery";
 
 export function Directions({
   content,
@@ -36,24 +36,7 @@ export function Directions({
               <span>Фото техники</span>
               <h3>{gallery.title}</h3>
             </div>
-            <div className="machinery-gallery">
-              {gallery.images.map((image, imageIndex) => (
-                <figure key={image.src}>
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1099px) calc((100vw - 72px) / 2), (max-width: 1464px) calc((100vw - 192px) / 4), 300px"
-                    loading="lazy"
-                    quality={78}
-                    style={{ objectPosition: image.position }}
-                  />
-                  <figcaption>
-                    {String(imageIndex + 1).padStart(2, "0")}
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
+            <MachineryGallery images={gallery.images} />
           </div>
         )}
         <p className="directions-note">{content.note}</p>

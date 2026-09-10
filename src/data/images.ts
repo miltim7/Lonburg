@@ -48,21 +48,25 @@ export const images = {
 export const machineryImages = [
   {
     src: "/images/machinery-1.webp",
+    fullSrc: "/images/machinery-1-large.webp",
     alt: "Красный грузовой кран-манипулятор в Китае",
     position: "center",
   },
   {
     src: "/images/machinery-2.webp",
+    fullSrc: "/images/machinery-2-large.webp",
     alt: "Красная автобетононасосная техника Sany на стоянке",
     position: "center",
   },
   {
     src: "/images/machinery-3.webp",
+    fullSrc: "/images/machinery-3-large.webp",
     alt: "Белая автобетононасосная техника XCMG на площадке",
     position: "center",
   },
   {
     src: "/images/machinery-4.webp",
+    fullSrc: "/images/machinery-4-large.webp",
     alt: "Белая строительная техника с крановой установкой",
     position: "center",
   },

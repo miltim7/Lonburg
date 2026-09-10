@@ -14,6 +14,14 @@ test("launch preview has honest contacts and no invented orders or prices", asyn
     "Крупная строительная техника",
   );
   await expect(page.locator(".machinery-gallery figure")).toHaveCount(4);
+  await page.getByRole("button", { name: "Открыть фото 1 крупнее" }).click();
+  await expect(
+    page.getByRole("dialog", { name: "Просмотр фотографии техники" }),
+  ).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(
+    page.getByRole("dialog", { name: "Просмотр фотографии техники" }),
+  ).toBeHidden();
   await expect(page.locator(".cost-document > .cost-items > li")).toHaveCount(
     4,
   );
