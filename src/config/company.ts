@@ -5,7 +5,7 @@ export const company: CompanyConfig = {
   tagline: "Автомобили из Китая под заказ",
   phone: "+7 (911) 136-53-46",
   email: "bovart.1979@gmail.com",
-  telegram: null,
+  telegram: "https://t.me/Lonburg_requests",
   max: null,
   legalName: null,
   footerNote: "Подбор, оформление и доставка в ваш город.",
